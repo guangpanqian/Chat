@@ -3,3 +3,6 @@ lib
 Debug
 Release
 Release_INFO
+*.opensdf
+*.sdf
+*/ipch/

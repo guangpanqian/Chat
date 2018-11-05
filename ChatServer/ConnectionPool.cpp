@@ -33,9 +33,12 @@ ConnPool::ConnPool(string url, string userName, string password, int maxSize)
 
 ConnPool*ConnPool::GetInstance()
 {
+	// 注意双重锁结构
+
 	if (NULL == connPool) 
 	{
 		EnterCriticalSection(&csInstance);
+		// 注意这里还有一次判空，因为如果不加的话，可能某个线程刚创建完，那么会再创建一个对象，不是单例了。。
 		if (NULL == connPool)
 		{
 			connPool = new ConnPool("tcp://127.0.0.1:3306", "root", "root", 100);
@@ -55,6 +58,7 @@ void ConnPool::InitConnection(int iInitialSize)
 		conn = this->CreateConnection();
 		if (conn) 
 		{
+			// 放入链接池
 			connList.push_back(conn);
 			++(this->curSize);
 		}
@@ -152,6 +156,7 @@ void ConnPool::ReleaseConnection(sql::Connection * conn)
 
 ConnPool::~ConnPool()
 {
+	// 析构的时候销毁连接池
 	this->DestoryConnPool();
 }
 

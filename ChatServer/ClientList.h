@@ -3,6 +3,8 @@
 #include "SocketClient.h"
 using namespace  std;
 
+// 维护一个客户端的列表，使用std::list是因为可能需要频繁的增删结点
+// 注意线程安全问题增加临界区变量
 class ClientList
 {
 

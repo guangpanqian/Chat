@@ -82,11 +82,8 @@ BOOL CChatServerApp::InitInstance()
 	InitializeCriticalSection(&ConnPool::cslock);
 	InitializeCriticalSection(&ConnPool::csInstance);
 
-	// 创建数据库操作对象
+	// 创建数据库操作对象，这个对象应该先创建，下面的服务需要用到这个访问数据库的对象
 	pEmployeeDBOperator = new EmployeeDBOperator();
-
-	// 启动服务
-	socketServer.StartWork();
 
 	// 若要创建主窗口，此代码将创建新的框架窗口
 	// 对象，然后将其设置为应用程序的主窗口对象
@@ -107,7 +104,10 @@ BOOL CChatServerApp::InitInstance()
 	m_pMainWnd->SetIcon( LoadIcon(IDR_MAINFRAME),FALSE);
 	pFrame->SetWindowText("通讯服务器");
 
-
+	// 启动服务
+	((CMainFrame*)(theApp.m_pMainWnd))->LogInfo("**********启动服务开始**********");
+	socketServer.StartWork();
+	((CMainFrame*)(theApp.m_pMainWnd))->LogInfo("**********启动服务完毕**********");
 
 	return TRUE;
 }
@@ -115,11 +115,15 @@ BOOL CChatServerApp::InitInstance()
 int CChatServerApp::ExitInstance()
 {
 	//TODO: 处理可能已添加的附加资源
+
+	// 这里应该先停止服务再销毁访问数据库的对象，因为服务可能正在访问数据库
 	socketServer.StopWork();
 	delete pEmployeeDBOperator;
 
+	// 销毁数据库连接池
 	delete ConnPool::GetInstance();
 
+	// 销毁临界区变量
 	DeleteCriticalSection(&ConnPool::cslock);
 	DeleteCriticalSection(&ConnPool::csInstance);
 

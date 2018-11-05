@@ -21,6 +21,9 @@ void EmployeeDBOperator::GetEmployees(vector<USER_BASE_INFO>&users)
 {
 	try
 	{
+		if (nullptr == connpool)
+			return;
+
 		// 从连接池中获取一个链接
 		Connection *con =  connpool->GetConnection();
 

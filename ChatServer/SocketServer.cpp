@@ -48,12 +48,15 @@ void SocketServer::StartService()
 {
 	// 初始化IO完成端口
 	InitICOP();
+	((CMainFrame*)(theApp.m_pMainWnd))->LogInfo("**********初始化完成端口完毕**********");
 
 	// 初始化服务线程
 	InitServiceThreads();
+	((CMainFrame*)(theApp.m_pMainWnd))->LogInfo("**********初始化服务线程完毕**********");
 
 	// 初始化监听线程
 	InitServerSocket();
+	((CMainFrame*)(theApp.m_pMainWnd))->LogInfo("**********初始化监听线程完毕**********");
 }
 
 void SocketServer::InitICOP()

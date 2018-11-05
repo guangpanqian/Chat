@@ -51,6 +51,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 private:
+	// 更新连接数
 	void UpdateConnections();
 };
 
