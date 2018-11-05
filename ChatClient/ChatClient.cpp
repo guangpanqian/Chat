@@ -55,6 +55,9 @@ void CChatClientApp::InitMembers()
 	strFolder += ".ini";
 	id = ::GetPrivateProfileInt("chatclient","id",1300,strFolder);
 	password = "123456";
+
+	::GetPrivateProfileString("chatclient", "serverIP", CHAT_SERVER_IP, serverIP.GetBuffer(MAX_PATH), MAX_PATH, strFolder);
+	serverPort = ::GetPrivateProfileInt("chatclient", "serverPort", CHAT_SERVER_PORT, strFolder);
 }
 
 CChatClientApp::~CChatClientApp()

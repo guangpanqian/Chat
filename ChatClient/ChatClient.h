@@ -38,6 +38,11 @@ public:
 	u_short id;
 	// ÃÜÂë
 	CString password;
+	// IP
+	CString serverIP;
+	// ¶Ë¿ÚºÅ
+	u_short serverPort;
+
 private:
 	void InitMembers();
 };

@@ -3,7 +3,7 @@
 
 
 // CLoginDlg 对话框
-
+// 登陆对话框
 class CLoginDlg : public CDialog, public ISocketObserver
 {
 	DECLARE_DYNAMIC(CLoginDlg)
@@ -21,7 +21,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
+	// 是否登陆成功
 	const BOOL IsLoginSucceed() const;
+	// 异步登陆
 	void Login();
 private:
 	BOOL m_bLoginSucceed;

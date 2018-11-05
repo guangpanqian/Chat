@@ -20,6 +20,8 @@ CChildView::CChildView(CClient *pClient)
 {
 	m_pClient = pClient;
 	m_pPeer = NULL;
+
+	// 注册需要处理的包ID
 	m_pClient->Attach(PACKET_ID_USERS,this);
 	m_pClient->Attach(PACKET_ID_STATUS_CHANGE,this);
 	m_pClient->Attach (PACKET_ID_LOAD_OFFLINE,this);
@@ -87,6 +89,7 @@ int CChildView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CChildView::CreateChildren()
 {
+	// 加载在线离线头像
 	m_bitmaps[ONLINE].LoadBitmap(IDB_BITMAP_ONLINE);
 	m_bitmaps[OFFLINE].LoadBitmap(IDB_BITMAP_OFFLINE);
 
@@ -108,6 +111,7 @@ void CChildView::CreateChildren()
 	SetTimer(NULL,5000,NULL);
 }
 
+// 请求用户列表
 void CChildView::RequestUserList()
 {
 	PPACKET_USERS packetUsers = new PACKET_USERS;
@@ -124,7 +128,7 @@ void CChildView::OnSize(UINT nType, int cx, int cy)
 	GetClientRect(&rcClient);
 	m_lstCtlUsers.MoveWindow(&rcClient);
 }
-
+// 发送心跳包
 void CChildView::OnTimer(UINT_PTR nIDEvent)
 {
 	PPACKET_HEART packetHeart = new PACKET_HEART;

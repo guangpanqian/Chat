@@ -11,6 +11,7 @@ class CAllLogDlg : public CDialog
 public:
 	CAllLogDlg(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CAllLogDlg();
+	// 设置聊天记录
 	void SetLog(CString strLog);
 // 对话框数据
 	enum { IDD = IDD_DIALOG_ALL_LOG };

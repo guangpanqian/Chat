@@ -38,6 +38,7 @@ public:
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSetFocus(CWnd *pOldWnd);
+	// 客户端连接来了
 	afx_msg LRESULT OnClientAccept(WPARAM wParam,LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 

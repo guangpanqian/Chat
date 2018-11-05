@@ -63,8 +63,8 @@ BOOL Server::InitServerSocket()
 
 	SOCKADDR_IN addressServer;
 	addressServer.sin_family = AF_INET;
-	addressServer.sin_port = htons(CHAT_SERVER_PORT);
-	addressServer.sin_addr.s_addr = inet_addr(CHAT_SERVER_IP);
+	addressServer.sin_port = htons(theApp.serverPort);
+	addressServer.sin_addr.s_addr = inet_addr(theApp.serverIP);
 	int ret = connect(socketServer,PSOCKADDR(&addressServer),sizeof(addressServer));
 	if (ret == SOCKET_ERROR)
 	{
